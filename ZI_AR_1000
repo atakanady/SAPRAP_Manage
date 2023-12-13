@@ -1,0 +1,70 @@
+@Metadata.layer: #PARTNER
+
+@UI: {
+    headerInfo: {
+                typeName: 'Academic Result Detail',
+                typeNamePlural: 'Academic Result Details',
+                title: {  type: #STANDARD, label: 'Academic Result Detail', value: 'Id'},
+                description:{ type: #STANDARD, label: 'Academic Result Details' }
+                },
+
+    presentationVariant: [{ sortOrder: [{ by: 'semester', direction: #ASC }]   }]
+}
+
+@Search.searchable: true
+
+annotate view ZI_AR_1000 with
+{
+
+  @UI.facet: [{ id: 'Acadmic',
+  purpose: #STANDARD,
+  type: #IDENTIFICATION_REFERENCE ,
+  label: 'Academic Result Details',
+  position: 10 }]
+
+
+  @UI: { identification: [{ position: 10, label: 'Student ID' }] }
+  @UI.hidden: true
+  id;
+
+  @UI: { lineItem: [{ position: 20, importance: #HIGH, label: 'Course' }],
+  identification: [{ position: 20 , label : 'Course' }]}
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity:{ name: 'ZI_COURSE_1000', element: 'value' },
+  additionalBinding: [{ localElement: 'course_desc' , element: 'Description'}]
+  }]
+  course;
+
+  @UI: { lineItem: [{ position: 30, importance: #HIGH, label: '' }],
+  identification: [{ position: 30 , label : '' }]
+  }
+  course_desc;
+
+  @UI: { lineItem: [{ position: 40, importance: #HIGH, label: 'Semester' }],
+  identification: [{ position: 40 , label : 'Semester' }]
+  }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity:{ name: 'ZI_SEM_1000', element: 'value' },
+  additionalBinding: [{ localElement: 'semester_desc' , element: 'Description'}]
+  }]
+  semester;
+
+  @UI: { lineItem: [{ position: 50, importance: #HIGH, label: '' }],
+  identification: [{ position: 50 , label : '' }]
+  }
+  @Search.defaultSearchElement: true
+  semester_desc;
+  @UI: { lineItem: [{ position: 60, importance: #HIGH, label: 'Status' }],
+  identification: [{ position: 60 , label : 'Status' }]
+  }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity:{ name: 'ZI_SEMRES_1000', element: 'value' },
+  additionalBinding: [{ localElement: 'semres_desc' , element: 'Description'}]
+  }]
+  Semresult;
+  @UI: { lineItem: [{ position: 70, importance: #HIGH, label: '' }],
+  identification: [{ position: 70 , label : '' }]
+  }
+  @Search.defaultSearchElement: true
+  semres_desc;
+}
