@@ -1,0 +1,35 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Interface Entity View  for Student'
+@Metadata.allowExtensions: true
+define root view entity ZI_STUDENT_1000
+  as select from zaa_rap_1000
+
+  composition [0..*] of ZI_AR_1000 as _academicres
+  association [0..1] to ZI_GENDER_1000    as _gender on $projection.Gender = _gender.value_low
+
+{
+@EndUserText.label: 'Student ID'
+  key id                 as Id,
+  
+  @EndUserText.label: 'First Name'
+      firstname          as Firstname,
+@EndUserText.label: 'Last Name'
+      lastname           as Lastname,
+      @EndUserText.label: 'Age'
+      age                as Age,
+      @EndUserText.label: 'Course'
+      course             as Course,
+      @EndUserText.label: 'Course Duration'
+      courseduration     as Courseduration,
+      @EndUserText.label: 'Status'
+      status             as Status,
+      @EndUserText.label: 'Gender'
+      gender             as Gender,
+      @EndUserText.label: 'DOB'
+      dob                as Dob,
+      lastchangedat      as Lastchangedat,
+      locallastchangedat as Locallastchangedat,
+      _gender,
+      _gender.text       as Genderdesc,
+      _academicres
+}
