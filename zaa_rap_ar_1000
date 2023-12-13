@@ -1,0 +1,18 @@
+@EndUserText.label : 'Acedemic Result Table'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zaa_rap_ar_1000 {
+
+  key client   : abap.clnt not null;
+  @AbapCatalog.foreignKey.screenCheck : false
+  key id       : sysuuid_x16 not null
+    with foreign key zaa_rap_1000
+      where client = zaa_rap_ar_1000.client
+        and id = zaa_rap_ar_1000.id;
+  key course   : zaa_rap_course_1000 not null;
+  key semester : zaa_rap_sem_1000 not null;
+  semresult    : zaa_rap_semres_1000;
+
+}
