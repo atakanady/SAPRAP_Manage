@@ -1,0 +1,60 @@
+managed implementation in class zbp_i_student_1000 unique;
+strict;
+define behavior for ZI_STUDENT_1000 alias Student
+persistent table zaa_rap_1000
+lock master
+authorization master ( instance )
+//etag master Locallastchangedat
+{
+  create;
+  update;
+  delete;
+
+  association _academicres { create; }
+
+  field ( numbering : managed, readonly ) Id;
+  field ( readonly ) Genderdesc;
+  action ( features : instance ) setAdmitted result [1] $self;
+  validation validateAge on save { field Age; create; }  //yas doğrulaması için kullanılıdı. post method çalışır
+  determination CourseDuration on save { field Course; create; } //post method çalışır
+  determination CourseDuration_update on modify { field Course; create; update; } //post method çalışır
+  determination CourseDuration_delete on modify { field Course; delete; } //post method çalışır
+
+
+  mapping for zaa_rap_1000
+    {
+      Id                 = id;
+      firstname          = firstname;
+      lastname           = lastname;
+      age                = age;
+      course             = course;
+      courseduration     = courseduration;
+      status             = status;
+      gender             = gender;
+      dob                = dob;
+      Lastchangedat      = lastchangedat;
+      Locallastchangedat = locallastchangedat;
+    }
+
+}
+
+define behavior for ZI_AR_1000 alias AcademicResult
+persistent table zaa_rap_ar_1000
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  association _student;
+
+  determination updateCourseDuration_body on save { field Course; create; }
+  field ( readonly ) Id;
+  field ( readonly ) course;
+  field ( readonly ) semester;
+  field ( readonly ) course_desc;
+  field ( readonly ) semester_desc;
+  field ( readonly ) semres_desc;
+
+
+}
