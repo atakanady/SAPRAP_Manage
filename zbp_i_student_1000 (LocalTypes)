@@ -52,114 +52,13 @@ CLASS lhc_ZI_STUDENT_1000 DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS courseduration_delete FOR DETERMINE ON MODIFY
       IMPORTING keys FOR student~courseduration_delete.
 
-
-    METHODS response_v2.
-
 ENDCLASS.
 
 CLASS lhc_ZI_STUDENT_1000 IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
 
-
-*
-*    iv_url = 'https://1fec6433trial.authentication.us10.hana.ondemand.com/oauth/token?grant_type=password&username=atakndymn@hotmail.com&password=Atakan115599-;;)))'.
-*
-*    DATA(url) = |{ iv_url }|.
-*    DATA(dest)   = cl_http_destination_provider=>create_by_url( url ).
-*    DATA(client) = cl_web_http_client_manager=>create_by_http_destination( dest ).
-*
-*
-*    lv_client_id     = 'sb-53f7a17d-2241-495a-8968-cc4fadabad0b!b219813|abap-trial-service-broker!b3132'.
-*    lv_client_secret = 'd1f09e34-e486-4bf1-8842-0ba8072ec221$I6dRwreKMJ9KOK2n9i33Wzzm6tDzlYjiJe6rDPFE9rI='.
-*
-*    DATA(req) = client->get_http_request(  ).
-*
-*    req->set_authorization_basic( i_password = lv_client_secret i_username = lv_client_id ).
-*
-**    req->set_form_field( i_name = 'Grant type'    i_value = 'client_credentials' ).
-**    req->set_form_field( i_name = 'client_id'     i_value = lv_client_id ).
-**    req->set_form_field( i_name = 'client_secret' i_value = lv_client_secret ).
-*
-*
-*
-*    TRY.
-*        DATA(http_response) = client->execute( if_web_http_client=>get ).
-*
-*      CATCH cx_root INTO oref.
-*        text = oref->get_text( ).
-*
-*    ENDTRY.
-*    DATA(get_text)      = http_response->get_text(  ).
-*    DATA(get_status)    = http_response->get_status(  ).
-*
-*    FIELD-SYMBOLS:
-*      <data>        TYPE data,
-*      <results>     TYPE any,
-*      <field>       TYPE any,
-*      <field_value> TYPE data.
-*
-*    CALL METHOD /ui2/cl_json=>deserialize
-*      EXPORTING
-*        json         = get_text
-*        pretty_name  = /ui2/cl_json=>pretty_mode-user
-*        assoc_arrays = abap_true
-*      CHANGING
-*        data         = lr_data.
-*
-*    IF lr_data IS BOUND.
-*      ASSIGN lr_data->* TO <data>.
-*      ASSIGN COMPONENT `ACCESS_TOKEN` OF STRUCTURE <data> TO <results>.
-**      ASSIGN <results>->* TO <data>.
-*
-*      lr_data = <results>.
-*
-*      ASSIGN lr_data->* TO <field_value>.
-*      ls_final-acces_token  = <field_value>.
-*
-*    ENDIF.
-*    client->close(  ).
-*    CALL METHOD response_v2( ).
-
-
   ENDMETHOD.
-
-  METHOD response_v2.
-*    CLEAR :iv_url.
-*
-*    iv_url = 'https://089b04d5-c34c-49d4-80b9-96228076931c.abap.us10.hana.ondemand.com/sap/opu/odata/sap/ZUI_STUD1000/Student'.
-*
-*    DATA(url_v2)    = |{ iv_url }|.
-*    DATA(dest_v2)   = cl_http_destination_provider=>create_by_url( url_v2 ).
-*    DATA(client_v2) = cl_web_http_client_manager=>create_by_http_destination( dest_v2 ).
-*    DATA(req_v2)    = client_v2->get_http_request(  ).
-*
-*
-*    lv_token =   ls_final-acces_token.
-*
-*
-*    req_v2->set_header_fields( VALUE #( (  name = 'X-CSRF-Token' value = 'Fetch' )
-*                                        (  name = 'Content-type' value = 'application/json; charset=UTF-8' ) ) ).
-*
-*
-*
-*    req_v2->set_authorization_bearer( i_bearer = lv_token ).
-*
-*    TRY.
-*        DATA(http_response2) = client_v2->execute( if_web_http_client=>get ).
-*      CATCH cx_root INTO oref.
-*        text = oref->get_text( ).
-*    ENDTRY.
-*
-*    DATA(one)   = req_v2->get_header_field( i_name = 'X-CSRF-Token' ).
-*    DATA(one_2) =  http_response2->get_header_field( i_name = 'X-CSRF-Token' ).
-*    DATA(one_3) =  http_response2->get_header_fields(  ).
-*
-*    DATA(get_text)   = http_response2->get_text(  ).
-*    DATA(get_status) = http_response2->get_status(  ).
-
-  ENDMETHOD.
-
 
   METHOD get_instance_features.
 
